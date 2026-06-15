@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                      String          @id @default(uuid())
+  email                   String          @unique
+  passwordHash            String          @map("password_hash")
+  firstName               String          @map("first_name")
+  lastName                String          @map("last_name")
+  role                    Role            @default(STUDENT)
+  department              Department
+  clearanceLevel          ClearanceLevel  @default(PUBLIC) @map("clearance_level")
+  isActive                Boolean         @default(true) @map("is_active")
+  isVerified              Boolean         @default(false) @map("is_verified")
+  isLocked                Boolean         @default(false) @map("is_locked")
+  failedLoginAttempts     Int             @default(0) @map("failed_login_attempts")
+  lastFailedLogin         DateTime?       @map("last_failed_login")
+  lockedUntil             DateTime?       @map("locked_until")
+  lastPasswordChange      DateTime        @default(now()) @map("last_password_change")
+  emailVerificationToken  String?         @unique @map("email_verification_token")
+  emailVerificationExpiry DateTime?       @map("email_verification_expiry")
+  passwordResetToken      String?         @unique @map("password_reset_token")
+  passwordResetExpiry     DateTime?       @map("password_reset_expiry")
+  lastLoginAt             DateTime?       @map("last_login_at")
+  lastLoginIp             String?         @map("last_login_ip")
+  lastLoginLocation       AccessLocation? @map("last_login_location")
+  termsAcceptedAt         DateTime?       @map("terms_accepted_at")
+  createdAt               DateTime        @default(now()) @map("created_at")
+  updatedAt               DateTime        @updatedAt @map("updated_at")
+  accessLogs              AccessLog[]
+  auditLogs               AuditLog[]
+  refreshTokens           RefreshToken[]
+  ownedResources          Resource[]
+  
+  
+  // Multi-Factor Authentication (2FA)
+  mfaEnabled            Boolean   @default(false) @map("mfa_enabled")
+  mfaSecret             String?   @map("mfa_secret") // TOTP secret
+  mfaBackupCodes        Json?     @map("mfa_backup_codes") // Array of hashed backup codes
+  mfaVerified           Boolean   @default(false) @map("mfa_verified") // Has user verified 2FA setup?
+  
+
+
+  @@index([email])
+  @@index([role])
+  @@index([department])
+  @@map("users")
+}
+
+model Resource {
+  id                     String         @id @default(uuid())
+  title                  String
+  description            String?
+  type                   ResourceType
+  sensitivityLevel       ClearanceLevel @map("sensitivity_level")
+  department             Department
+  externalUrl            String?        @map("external_url") // Link to Google Drive, institutional repo, etc.
+  doi                    String?        // Digital Object Identifier (for published papers)
+  emailContact           String?        @map("email_contact") // Contact to request access
+  ownerId                String         @map("owner_id")
+  requiresOnCampusAccess Boolean        @default(false) @map("requires_on_campus_access")
+  allowDownload          Boolean        @default(true) @map("allow_download")
+  isActive               Boolean        @default(true) @map("is_active")
+  createdAt              DateTime       @default(now()) @map("created_at")
+  updatedAt              DateTime       @updatedAt @map("updated_at")
+  accessLogs             AccessLog[]
+  owner                  User           @relation(fields: [ownerId], references: [id])
+
+  @@index([type])
+  @@index([sensitivityLevel])
+  @@index([department])
+  @@index([ownerId])
+  @@map("resources")
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  tokenHash String    @unique @map("token_hash")
+  userId    String    @map("user_id")
+  expiresAt DateTime  @map("expires_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  revokedAt DateTime? @map("revoked_at")
+  userAgent String?   @map("user_agent")
+  ipAddress String?   @map("ip_address")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+model AccessLog {
+  id                  String          @id @default(uuid())
+  userId              String?         @map("user_id")
+  userRole            Role?           @map("user_role")
+  userDepartment      Department?     @map("user_department")
+  userClearance       ClearanceLevel? @map("user_clearance")
+  resourceId          String?         @map("resource_id")
+  resourceType        ResourceType?   @map("resource_type")
+  resourceSensitivity ClearanceLevel? @map("resource_sensitivity")
+  action              AccessAction
+  decision            AccessDecision
+  denyReason          String?         @map("deny_reason")
+  policyMatched       String?         @map("policy_matched")
+  ipAddress           String?         @map("ip_address")
+  accessLocation      AccessLocation? @map("access_location")
+  userAgent           String?         @map("user_agent")
+  timestamp           DateTime        @default(now())
+  resource            Resource?       @relation(fields: [resourceId], references: [id])
+  user                User?           @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([resourceId])
+  @@index([timestamp])
+  @@map("access_logs")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?  @map("user_id")
+  action    String
+  result    String
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  metadata  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+enum Role {
+  STUDENT
+  PROFESSOR
+  RESEARCHER
+  STAFF
+  ADMIN
+}
+
+enum Department {
+  COMPUTER_SCIENCE
+  MEDICINE
+  ENGINEERING
+  PHYSICS
+  CHEMISTRY
+  BIOLOGY
+  MATHEMATICS
+}
+
+enum ClearanceLevel {
+  PUBLIC
+  INTERNAL
+  CONFIDENTIAL
+  RESTRICTED
+}
+
+enum ResourceType {
+  PAPER
+  DATASET
+  THESIS
+  REPORT
+}
+
+enum AccessLocation {
+  ON_CAMPUS
+  OFF_CAMPUS
+  VPN
+}
+
+enum AccessAction {
+  VIEW
+  READ
+  DOWNLOAD
+  EDIT
+  DELETE
+}
+
+enum AccessDecision {
+  ALLOW
+  DENY
+}
