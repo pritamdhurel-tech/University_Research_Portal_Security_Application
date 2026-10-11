@@ -1,35 +1,37 @@
 // src/pages/SetupPasswordPage.tsx
-import { useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { authApi } from '../services/api';
-import PasswordStrength from '../components/ui/PasswordStrength';
-import { ShieldCheck, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { authApi } from "../services/api";
+import PasswordStrength from "../components/ui/PasswordStrength";
+import { ShieldCheck, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
 
 export default function SetupPasswordPage() {
   const { token } = useParams<{ token: string }>();
-  const navigate = useNavigate();
-  
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const mutation = useMutation({
-    mutationFn: (data: { token: string; password: string }) => 
+    mutationFn: (data: { token: string; password: string }) =>
       authApi.setupPassword(data.token, data.password),
     onSuccess: () => {
       setSuccess(true);
     },
     onError: (err: any) => {
-      setError(err.response?.data?.message || 'Failed to set password. The link may be expired.');
-    }
+      setError(
+        err.response?.data?.message ||
+          "Failed to set password. The link may be expired.",
+      );
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
     if (token) {
@@ -45,9 +47,12 @@ export default function SetupPasswordPage() {
             <CheckCircle2 className="w-10 h-10 text-green-600" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-stone-900">Setup Complete</h1>
+            <h1 className="text-2xl font-bold text-stone-900">
+              Setup Complete
+            </h1>
             <p className="text-stone-500 mt-2">
-              Your password has been set successfully. You can now access your university account.
+              Your password has been set successfully. You can now access your
+              university account.
             </p>
           </div>
           <Link
@@ -69,9 +74,12 @@ export default function SetupPasswordPage() {
           <div className="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <ShieldCheck className="w-8 h-8 text-brand-600" />
           </div>
-          <h1 className="text-2xl font-bold text-stone-900">Finalize Account</h1>
+          <h1 className="text-2xl font-bold text-stone-900">
+            Finalize Account
+          </h1>
           <p className="text-sm text-stone-500">
-            Welcome to the Research Portal. Please choose a strong password to secure your internal profile.
+            Welcome to the Research Portal. Please choose a strong password to
+            secure your internal profile.
           </p>
         </div>
 
@@ -83,7 +91,9 @@ export default function SetupPasswordPage() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-stone-700 ml-1">New password</label>
+            <label className="text-sm font-medium text-stone-700 ml-1">
+              New password
+            </label>
             <input
               type="password"
               required
@@ -99,7 +109,9 @@ export default function SetupPasswordPage() {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-stone-700 ml-1">Confirm password</label>
+            <label className="text-sm font-medium text-stone-700 ml-1">
+              Confirm password
+            </label>
             <input
               type="password"
               required
@@ -121,13 +133,14 @@ export default function SetupPasswordPage() {
             {mutation.isPending ? (
               <Loader2 className="w-5 h-5 animate-spin" />
             ) : (
-              'Set Password & Finish'
+              "Set Password & Finish"
             )}
           </button>
         </form>
 
         <p className="text-center text-xs text-stone-400">
-           By setting your password, you agree to the university's data protection policy and internal research guidelines.
+          By setting your password, you agree to the university's data
+          protection policy and internal research guidelines.
         </p>
       </div>
     </div>
