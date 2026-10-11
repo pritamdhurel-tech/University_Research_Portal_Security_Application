@@ -10,4 +10,4 @@ RUN npx prisma generate
 ENV DATABASE_URL=""
 
 EXPOSE 8003
-CMD ["./start.sh"]
+CMD ["sh", "./start.sh"]
