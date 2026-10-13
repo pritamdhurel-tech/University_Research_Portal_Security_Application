@@ -3,3 +3,5 @@ node_modules
 scratch
 .enc.local
 PROJECT_SPEC.md
+private
+private.pub
