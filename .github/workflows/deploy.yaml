@@ -21,6 +21,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script_stop: true
           script: |
-            cd /home/ubuntu/University_Research_Portal_Security_Application
+            cd /home/ec2-user/University_Research_Portal_Security_Application
             git pull --ff-only origin main
             docker compose up -d --build
