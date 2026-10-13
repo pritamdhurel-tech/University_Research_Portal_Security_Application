@@ -1,7 +1,7 @@
-import test from "node:test";
-import assert from "node:assert/strict";
-import request from "supertest";
-import app from "../src/app.js";
+const test = require("node:test");
+const assert = require("node:assert/strict");
+const request = require("supertest");
+const app = require("../app"); // your test file is in src/tests, so ../app is src/app.js
 
 test("root returns API info", async () => {
   const res = await request(app).get("/");
