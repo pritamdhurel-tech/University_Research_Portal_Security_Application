@@ -20,10 +20,10 @@ jobs:
           JWT_ACCESS_SECRET: ci-dummy
           JWT_REFRESH_SECRET: ci-dummy
           DATABASE_URL: postgresql://x:x@localhost:5432/x
-          run: |
-            npm ci
-            npx prisma generate
-            npm test
+        run: |
+          npm ci
+          npx prisma generate
+          npm test
 
   deploy:
     runs-on: ubuntu-latest
