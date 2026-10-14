@@ -17,8 +17,8 @@ jobs:
       - name: Backend tests
         working-directory: backend
         env:
-          JWT_ACCESS_SECRET: ci-dummy
-          JWT_REFRESH_SECRET: ci-dummy
+          JWT_ACCESS_SECRET: 5e24823a11c4f7e335a04d1fa4f24af9f7a2a258fdfe225fb124e5a3e00ada64
+          JWT_REFRESH_SECRET: fc553b86a69de73649cda7994fab9c43e4412b1e4ed267d58adbb04bfc134593
           DATABASE_URL: postgresql://x:x@localhost:5432/x
         run: |
           npm ci
@@ -26,6 +26,7 @@ jobs:
           npm test
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +41,13 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script_stop: true
           script: |
+            export AWS_DEFAULT_REGION=ap-southeast-2
+            get() { aws ssm get-parameter --name "/myapp/prod/$1" --with-decryption --query 'Parameter.Value' --output text; }
+            DB_PASSWORD="$(get DB_PASSWORD)"
+            JWT_ACCESS_SECRET="$(get JWT_ACCESS_SECRET)"
+            JWT_REFRESH_SECRET="$(get JWT_REFRESH_SECRET)"
+            VM_IP="$(get VM_IP)"
+            export DB_PASSWORD JWT_ACCESS_SECRET JWT_REFRESH_SECRET VM_IP
             cd /home/ec2-user/University_Research_Portal_Security_Application
             git pull --ff-only origin main
             docker compose up -d --build
