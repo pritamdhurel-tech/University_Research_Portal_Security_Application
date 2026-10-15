@@ -2,8 +2,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
-  Dna,
-  ExternalLink,
   Fingerprint,
   LibraryBig,
   Microscope,
@@ -30,29 +28,6 @@ const benefits = [
     title: 'Security built in',
     description:
       'Strong authentication and clear access controls help protect the work and people behind every discovery.',
-  },
-];
-
-const featuredResearch = [
-  {
-    icon: Dna,
-    field: 'Computational biology',
-    title: 'Accurate structure prediction of biomolecular interactions with AlphaFold 3',
-    summary:
-      'A unified model predicts structures and interactions across proteins, nucleic acids, small molecules, ions, and modified residues.',
-    journal: 'Nature · 2024 · 630, 493–500',
-    doi: '10.1038/s41586-024-07487-w',
-    href: 'https://doi.org/10.1038/s41586-024-07487-w',
-  },
-  {
-    icon: Microscope,
-    field: 'Genomic medicine',
-    title: 'Exagamglogene Autotemcel for Severe Sickle Cell Disease',
-    summary:
-      'A clinical study investigates a CRISPR/Cas9 gene-edited cell therapy for people living with severe sickle cell disease.',
-    journal: 'New England Journal of Medicine · 2024 · 390, 1649–1662',
-    doi: '10.1056/NEJMoa2309676',
-    href: 'https://doi.org/10.1056/NEJMoa2309676',
   },
 ];
 
@@ -101,12 +76,6 @@ export default function LandingPage() {
         </Link>
 
         <nav aria-label="Main navigation" className="flex items-center gap-3 sm:gap-7">
-          <a
-            href="#research"
-            className="hidden text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 sm:inline"
-          >
-            Research
-          </a>
           <a
             href="#about"
             className="hidden text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 sm:inline"
@@ -205,7 +174,7 @@ export default function LandingPage() {
                   <span className="absolute left-[16%] top-[24%] flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-stone-800 text-brand-200">
                     <BookOpen size={18} strokeWidth={1.5} aria-hidden="true" />
                   </span>
-                  <span className="absolute bottom-[17%] right-[19%] h-3 w-3 rounded-full bg-brand-400 shadow-[0_0_18px_rgba(86,143,108,0.8)]" />
+                  <span className="absolute bottom-[17%] right-[19%] h-3 w-3 rounded-full bg-brand-400 shadow-[0_0_18px_rgba(240,112,48,0.8)]" />
                   <span className="absolute right-[17%] top-[20%] h-2 w-2 rounded-full bg-stone-300" />
                   <span className="absolute bottom-[23%] left-[24%] h-2 w-2 rounded-full bg-brand-300" />
                 </div>
@@ -235,74 +204,6 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section id="research" className="border-y border-stone-200 bg-[#f4f7f4]">
-          <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-              <div className="max-w-2xl">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
-                  Research in focus
-                </p>
-                <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-stone-900 sm:text-4xl">
-                  Real research. Original sources.
-                </h2>
-                <p className="mt-4 text-sm leading-6 text-stone-600 sm:text-base">
-                  Explore selected peer-reviewed studies in computational
-                  biology and genomic medicine, with links to the original
-                  publications.
-                </p>
-              </div>
-              <span className="w-fit rounded-full border border-brand-100 bg-white px-3.5 py-2 text-xs font-medium text-brand-700">
-                Published studies · 2024
-              </span>
-            </div>
-
-            <div className="mt-9 grid gap-5 lg:grid-cols-2">
-              {featuredResearch.map(
-                ({ icon: Icon, field, title, summary, journal, doi, href }) => (
-                  <article
-                    key={doi}
-                    className="flex h-full flex-col rounded-3xl border border-stone-200 bg-white p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover sm:p-7"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
-                        <Icon size={21} strokeWidth={1.7} aria-hidden="true" />
-                      </span>
-                      <span className="rounded-full bg-stone-100 px-3 py-1.5 text-xs font-medium text-stone-600">
-                        {field}
-                      </span>
-                    </div>
-                    <h3 className="mt-5 font-display text-xl font-semibold leading-snug text-stone-900 sm:text-2xl">
-                      {title}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm leading-6 text-stone-600">
-                      {summary}
-                    </p>
-                    <div className="mt-6 border-t border-stone-100 pt-4">
-                      <p className="text-xs font-medium text-stone-700">
-                        {journal}
-                      </p>
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-brand-700 underline decoration-brand-200 underline-offset-4 transition-colors hover:text-brand-900"
-                      >
-                        DOI: {doi}
-                        <ExternalLink size={13} aria-hidden="true" />
-                        <span className="sr-only">(opens in a new tab)</span>
-                      </a>
-                    </div>
-                  </article>
-                ),
-              )}
-            </div>
-            <p className="mt-5 text-xs leading-5 text-stone-500">
-              These are examples of published research, not live records from
-              this portal’s access-controlled library.
-            </p>
           </div>
         </section>
 
