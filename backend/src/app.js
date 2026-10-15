@@ -40,7 +40,7 @@ if (config.nodeEnv === "development") {
 }
 
 // Trust proxy (for accurate IP addresses behind load balancers)
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 // Context enrichment (capture IP, user agent, location)
 app.use(enrichContext);
