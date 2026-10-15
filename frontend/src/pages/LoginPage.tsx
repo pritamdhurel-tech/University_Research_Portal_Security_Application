@@ -640,8 +640,8 @@ export default function LoginPage() {
               </button>
               <div className="w-10 h-10 rounded-2xl bg-brand-50 flex items-center justify-center mb-3">
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
-                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="#e8651a" strokeWidth="1.5" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#e8651a" strokeWidth="1.5" strokeLinecap="round" />
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="#10b981" strokeWidth="1.5" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </div>
               <h2 className="text-lg font-semibold text-stone-900">Verify your identity</h2>

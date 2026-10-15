@@ -190,7 +190,7 @@ export default function DashboardPage() {
             to="/resources"
             icon={
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                <path d="M4 6h16M4 10h16M4 14h8M4 18h6" stroke="#e8651a" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M4 6h16M4 10h16M4 14h8M4 18h6" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             }
             title="Browse resources"
@@ -200,8 +200,8 @@ export default function DashboardPage() {
             to="/mfa-setup"
             icon={
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                <rect x="3" y="11" width="18" height="11" rx="2" stroke="#e8651a" strokeWidth="1.5"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#e8651a" strokeWidth="1.5" strokeLinecap="round"/>
+                <rect x="3" y="11" width="18" height="11" rx="2" stroke="#10b981" strokeWidth="1.5"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             }
             title="Security settings"
@@ -212,7 +212,7 @@ export default function DashboardPage() {
               to="/admin"
               icon={
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="#e8651a" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               }
               title="User management"
@@ -224,7 +224,7 @@ export default function DashboardPage() {
               to="/audit-logs"
               icon={
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
-                  <path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="#e8651a" strokeWidth="1.5"/>
+                  <path d="M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="#10b981" strokeWidth="1.5"/>
                 </svg>
               }
               title="Audit logs"

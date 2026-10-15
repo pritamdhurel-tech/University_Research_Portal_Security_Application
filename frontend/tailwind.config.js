@@ -5,16 +5,16 @@ export default {
     extend: {
       colors: {
         brand: {
-          50:  '#fef3ec',
-          100: '#fde0cb',
-          200: '#fac09a',
-          300: '#f69660',
-          400: '#f07030',
-          500: '#e8651a',
-          600: '#c9510e',
-          700: '#a73d0a',
-          800: '#7f2e0a',
-          900: '#5a200a',
+          50:  '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          300: '#6ee7b7',
+          400: '#34d399',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
         },
         stone: {
           50:  '#fafaf9',
@@ -41,7 +41,7 @@ export default {
       boxShadow: {
         'card': '0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.04)',
         'card-hover': '0 4px 12px 0 rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04)',
-        'focus': '0 0 0 3px rgba(232,101,26,0.25)',
+        'focus': '0 0 0 3px rgba(16,185,129,0.25)',
       },
       animation: {
         'fade-up': 'fadeUp 0.4s ease-out',
